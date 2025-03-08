@@ -112,7 +112,11 @@
             <!-- Page View Counter -->
             <div class="mt-6 text-gray-400">
                 <span>Page Views: </span>
-                <span id="visits" class="font-semibold text-[#ff4d6d]">Loading...</span>
+                <span id="visits" class="font-semibold text-[#ff4d6d]">
+                    <!-- Free Hit Counter from HitWebCounter -->
+                    <img src="https://hitwebcounter.com/counter/counter.php?page=9641280&style=0038&nbdigits=5&type=page&initCount=0" 
+                         title="Free Counter" alt="web counter" style="border: none;">
+                </span>
             </div>
         </div>
     </section>
@@ -405,19 +409,7 @@
         });
 
         // Page view counter functionality
-        async function updateVisitCount() {
-            try {
-                const response = await fetch('https://api.countapi.xyz/hit/tenlhak.github.io/visits');
-                const data = await response.json();
-                document.getElementById('visits').innerText = data.value.toLocaleString();
-            } catch (error) {
-                console.error('Error updating visit count:', error);
-                document.getElementById('visits').innerText = 'Error loading count';
-            }
-        }
 
-        // Update the counter when the page loads
-        updateVisitCount();
     </script>
 </body>
 </html>
