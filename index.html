@@ -112,47 +112,14 @@
             <!-- Page View Counter -->
             <div class="mt-6 text-gray-400">
                 <span>Page Views: </span>
-                <span id="visits" class="font-semibold text-[#ff4d6d]">Loading...</span>
+                <span id="visits" class="font-semibold text-[#ff4d6d]">
+                    <!-- WebCounter with custom styling to match your site -->
+                    <a href="#" style="text-decoration:none;">
+                        <img src="https://hitwebcounter.com/counter/counter.php?page=9641280&style=0038&nbdigits=5&type=ip&initCount=1000" 
+                             title="Free Counter" alt="web counter" style="border:none; background:transparent;">
+                    </a>
+                </span>
             </div>
-            
-            <script>
-                async function updateVisitCount() {
-                    try {
-                        // First, make sure we've waited a moment for the counter to register
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-                        
-                        // Then fetch the count from GoatCounter's API
-                        const response = await fetch('https://tenzinlhakpa.goatcounter.com/counter/total.json', {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        });
-                        
-                        if (!response.ok) {
-                            throw new Error('Failed to fetch counter data');
-                        }
-                        
-                        const data = await response.json();
-                        
-                        // The count should be in the data
-                        const count = data.count || 0;
-                        
-                        // Update the counter display
-                        document.getElementById('visits').innerText = count.toLocaleString();
-                    } catch (error) {
-                        console.error('Error fetching visit count:', error);
-                        // If there's an error, show a fallback number instead of "Error"
-                        document.getElementById('visits').innerText = '1';
-                    }
-                }
-                
-                // Call the function when the page loads
-                document.addEventListener('DOMContentLoaded', function() {
-                    // First load the script, then update the count
-                    updateVisitCount();
-                });
-            </script>
         </div>
     </section>
 
