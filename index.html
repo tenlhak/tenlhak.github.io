@@ -82,9 +82,20 @@
             transform: translateY(-4px);
             box-shadow: 0 6px 16px rgba(255, 77, 109, 0.4);
         }
+
+        body {
+            background-color: #000;
+            background-image:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
+            background-position: 0 0, 0 0, 2px 2px, 2px 2px;
+            background-size: 4px 4px;
+        }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="text-white">
     <!-- Navigation -->
     <nav class="fixed w-full z-50 px-4 py-6 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
