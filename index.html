@@ -3,434 +3,1159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenzin Lhakpa - Portfolio</title>
+    <title>Tenzin Lhakpa — AI/ML Engineer</title>
     <!-- Favicon links -->
-    <link rel="icon" type="image/png" href="images/favicon.jpg">
+    <link rel="icon" type="image/webp" href="images/fav_icon.webp">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Typography: Inter for text, IBM Plex Mono for technical annotations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .gradient-text {
-            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        :root {
+            --bg: #0c0c0c;
+            --surface: #101010;
+            --line: #242424;
+            --line-strong: #3a3a3a;
+            --ink: #e8e6e1;
+            --ink-dim: #8f8d88;
+            --ink-faint: #55534f;
+            --accent: #ff4400;
+            --mono: 'IBM Plex Mono', 'Courier New', monospace;
+            --sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: #ff4d6d;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        ::selection { background: var(--accent); color: #000; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .project-image {
-            max-height: 300px;
-            object-fit: cover;
+        /* ---------- Document frame ---------- */
+        .frame {
+            max-width: 1240px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            min-height: 100vh;
+            background-image: radial-gradient(circle, rgba(232, 230, 225, 0.05) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+
+        /* ---------- Scroll progress ---------- */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform-origin: 0 0;
+            transform: scaleX(0);
+            z-index: 200;
         }
 
-        .nav-link {
-            position: relative;
-            padding-bottom: 2px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
+        /* ---------- Live HUD ---------- */
+        .hud {
+            position: fixed;
             bottom: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: #ff4d6d;
-            transition: width 0.3s ease;
+            z-index: 100;
+            display: flex;
+            background: rgba(12, 12, 12, 0.92);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
         }
 
-        .nav-link:hover::after {
-            width: 100%;
+        .hud span {
+            padding: 0.55rem 0.9rem;
+            border-right: 1px solid var(--line);
         }
 
-        .scroll-to-top {
+        .hud span:last-child {
+            border-right: 0;
+            color: var(--ink-dim);
+        }
+
+        /* ---------- Mono annotations ---------- */
+        .mono {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+        }
+
+        .mono-accent { color: var(--accent); }
+
+        /* ---------- Header ---------- */
+        header {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(12, 12, 12, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+        }
+
+        .header-name {
+            padding: 1.1rem 2rem;
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-name a {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .header-name span {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            color: var(--ink-faint);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        nav {
+            display: flex;
+            align-items: stretch;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            padding: 0 1.4rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            text-decoration: none;
+            border-left: 1px solid var(--line);
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+
+        nav a b {
+            font-weight: 400;
+            color: var(--ink-faint);
+            margin-right: 0.5em;
+        }
+
+        nav a:hover {
+            color: var(--ink);
+            background: var(--surface);
+        }
+
+        nav a:hover b { color: var(--accent); }
+
+        /* ---------- Section scaffolding ---------- */
+        section { border-bottom: 1px solid var(--line); }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .section-head .rule {
+            flex: 1;
+            border-bottom: 1px dotted var(--line-strong);
+            margin: 0 1.5rem;
+            transform: translateY(-4px);
+        }
+
+        /* ---------- Hero ---------- */
+        .hero { padding-top: 60px; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+        }
+
+        .hero-main {
+            padding: 5rem 2rem 4rem;
+            border-right: 1px solid var(--line);
+        }
+
+        .hero-kicker {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-kicker .dot {
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            background: var(--accent);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+
+        h1 {
+            font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+            font-weight: 800;
+            line-height: 0.98;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--ink-faint);
+        }
+
+        .hero-desc {
+            margin-top: 2.5rem;
+            max-width: 34rem;
+            color: var(--ink-dim);
+            font-size: 1.05rem;
+            line-height: 1.75;
+        }
+
+        .hero-desc em {
+            font-style: normal;
+            color: var(--ink);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.85rem 1.6rem;
+            border: 1px solid var(--line-strong);
+            color: var(--ink);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-solid {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+        }
+
+        .btn-solid:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        /* Hero side panel — spec sheet */
+        .hero-side { display: flex; flex-direction: column; }
+
+        .spec {
+            padding: 1.4rem 1.8rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .spec:last-child { border-bottom: 0; flex: 1; }
+
+        .spec dt {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 0.4rem;
+        }
+
+        .spec dd {
+            font-size: 0.9rem;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .spec dd.mono-val {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--ink-dim);
+        }
+
+        /* ---------- Work index ---------- */
+        .project {
+            display: grid;
+            grid-template-columns: 90px 1fr 380px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .project:last-child { border-bottom: 0; }
+
+        .project-num {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--ink-faint);
+            padding: 2.5rem 0 0 2rem;
+        }
+
+        .project-body {
+            padding: 2.5rem 2.5rem 2.5rem 0;
+        }
+
+        .project-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            line-height: 1.2;
+            color: var(--ink);
+            text-decoration: none;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .project-title:hover { color: var(--accent); }
+
+        .project-tagline {
+            margin-top: 0.9rem;
+            color: var(--ink-dim);
+            max-width: 36rem;
+            font-size: 0.95rem;
+        }
+
+        .project-facts {
+            margin-top: 1.4rem;
+            list-style: none;
+        }
+
+        .project-facts li {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            color: var(--ink-dim);
+            padding: 0.45rem 0;
+            border-top: 1px dotted var(--line-strong);
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .project-facts li::before {
+            content: '→';
+            color: var(--accent);
+        }
+
+        .project-tools {
+            margin-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tool {
+            font-family: var(--mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            border: 1px solid var(--line);
+            padding: 0.25rem 0.6rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1.6rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .project-link:hover { color: var(--accent); }
+
+        .project-media {
+            border-left: 1px solid var(--line);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .project-media img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%) contrast(1.05);
+            transition: filter 0.4s ease;
+        }
+
+        .project:hover .project-media img { filter: grayscale(0%); }
+
+        .fig-caption {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+        }
+
+        /* Typographic placeholder for projects without imagery */
+        .media-placeholder {
+            border: 1px dotted var(--line-strong);
+            aspect-ratio: 4 / 3;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
         }
 
-        .scroll-to-top:hover {
+        /* ---------- Publications ---------- */
+        .pub {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+        }
+
+        .pub-body { padding: 2.5rem 2.5rem 2.5rem 2rem; }
+
+        .pub-status {
+            font-family: var(--mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .pub h3 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+        }
+
+        .pub p {
+            margin-top: 1rem;
+            color: var(--ink-dim);
+            max-width: 38rem;
+            font-size: 0.95rem;
+        }
+
+        .keywords {
+            margin-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        /* ---------- Essays ---------- */
+        .essay {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            padding: 1.6rem 2rem;
+            border-bottom: 1px solid var(--line);
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .essay:last-child { border-bottom: 0; }
+
+        .essay:hover { background: var(--surface); }
+
+        .essay-num {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            color: var(--ink-faint);
+            flex-shrink: 0;
+        }
+
+        .essay-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .essay .rule {
+            flex: 1;
+            border-bottom: 1px dotted var(--line-strong);
             transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(255, 77, 109, 0.4);
         }
 
-        body {
-            background-color: #000;
-            background-image:
-                linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-                linear-gradient(225deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-                linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-                linear-gradient(315deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
-            background-position: 0 0, 0 0, 2px 2px, 2px 2px;
-            background-size: 4px 4px;
+        .essay-status {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            flex-shrink: 0;
+        }
+
+        /* ---------- About ---------- */
+        .about {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+        }
+
+        .about-media {
+            border-right: 1px solid var(--line);
+            padding: 2rem;
+        }
+
+        .about-media img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.4s ease;
+        }
+
+        .about-media img:hover { filter: grayscale(0%); }
+
+        .about-body { padding: 2.5rem; }
+
+        .about-body p {
+            color: var(--ink-dim);
+            max-width: 40rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-body p em {
+            font-style: normal;
+            color: var(--ink);
+        }
+
+        .skill-groups {
+            margin-top: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .skill-group {
+            padding: 1.4rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .skill-group:nth-child(odd) { padding-right: 2rem; }
+        .skill-group:nth-child(even) {
+            padding-left: 2rem;
+            border-left: 1px solid var(--line);
+        }
+
+        .skill-group h4 {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-group ul { list-style: none; }
+
+        .skill-group li {
+            font-size: 0.9rem;
+            color: var(--ink-dim);
+            padding: 0.2rem 0;
+        }
+
+        /* ---------- Contact ---------- */
+        .contact { text-align: left; padding: 5rem 2rem 6rem; }
+
+        .contact-label { margin-bottom: 2rem; }
+
+        .contact-email {
+            font-size: clamp(1.6rem, 4.5vw, 3.4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 2px solid var(--line-strong);
+            transition: color 0.2s ease, border-color 0.2s ease;
+            word-break: break-all;
+        }
+
+        .contact-email:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .contact-links {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem 3.6rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* ---------- Scroll reveal ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 980px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-main { border-right: 0; border-bottom: 1px solid var(--line); }
+            .hero-side { flex-direction: row; flex-wrap: wrap; }
+            .spec { flex: 1 1 40%; border-right: 1px solid var(--line); }
+
+            .project { grid-template-columns: 60px 1fr; }
+            .project-media {
+                grid-column: 2;
+                border-left: 0;
+                border-top: 1px dotted var(--line);
+                padding-left: 0;
+            }
+
+            .pub { grid-template-columns: 1fr; }
+            .about { grid-template-columns: 1fr; }
+            .about-media { border-right: 0; border-bottom: 1px solid var(--line); max-width: 380px; }
+        }
+
+        @media (max-width: 720px) {
+            .header-name { padding: 0.9rem 1.2rem; }
+            .header-name span { display: none; }
+            nav a { padding: 0 0.7rem; font-size: 0.62rem; }
+            nav a b { display: none; }
+
+            .hero-main { padding: 3.5rem 1.2rem 3rem; }
+            .section-head { padding: 1rem 1.2rem; }
+            .project-num { padding-left: 1.2rem; padding-top: 2rem; }
+            .project { grid-template-columns: 48px 1fr; }
+            .project-body { padding: 2rem 1.2rem 2rem 0; }
+            .about-body, .pub-body { padding: 2rem 1.2rem; }
+            .contact { padding: 3.5rem 1.2rem 4rem; }
+            .essay { padding: 1.3rem 1.2rem; gap: 1rem; }
+            .essay .rule { display: none; }
+            .skill-groups { grid-template-columns: 1fr; }
+            .skill-group:nth-child(even) { padding-left: 0; border-left: 0; }
+            .skill-group:nth-child(odd) { padding-right: 0; }
+            footer { padding: 1rem 1.2rem; }
+            .hud { display: none; }
         }
     </style>
 </head>
-<body class="text-white">
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 px-4 py-6 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-light gradient-text">Tenzin Lhakpa</a>
-            <div class="space-x-12 text-lg">
-                <a href="#work" class="nav-link hover:text-gray-300 transition-colors">Work</a>
-                <a href="#publications" class="nav-link hover:text-gray-300 transition-colors">Publications</a>
-                <a href="#about" class="nav-link hover:text-gray-300 transition-colors">About</a>
-                <a href="#contact" class="nav-link hover:text-gray-300 transition-colors">Contact</a>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-name">
+                <a href="#top">Tenzin Lhakpa</a>
+                <span>AI/ML Engineer</span>
             </div>
+            <nav>
+                <a href="#work"><b>01</b>Work</a>
+                <a href="#publications"><b>02</b>Research</a>
+                <a href="#essays"><b>03</b>Essays</a>
+                <a href="#about"><b>04</b>About</a>
+                <a href="#contact"><b>05</b>Contact</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section min-h-screen flex items-center pt-24 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-7xl font-light mb-8 gradient-text">Tenzin Lhakpa</h1>
-            <p class="text-xl text-gray-300 max-w-3xl leading-relaxed backdrop-blur-lg bg-black bg-opacity-30 p-6 rounded-lg">
-                A Machine Learning Engineer specializing in Generative AI, LLMs, Multi-modal Learning, AI Agents, and RAG Systems, driving innovative solutions at the intersection of NLP, computer vision, and advanced machine learning.
-            </p>
-            <div class="mt-12 space-x-6">
-                <a href="#contact" class="bg-gradient-to-r from-[#ff4d6d] to-[#ff8fa3] px-8 py-3 rounded-lg inline-block hover:opacity-90 transition-all transform hover:-translate-y-1">Get in touch</a>
-                <a href="https://drive.google.com/file/d/1A73xeHX_mOJ0dg8iTeWu2mJaPAl_VfUd/view?usp=sharing" class="border-2 border-[#ff4d6d] px-8 py-3 rounded-lg inline-block hover:bg-[#ff4d6d] transition-all transform hover:-translate-y-1">Resume</a>
-            </div>
-            <!-- Page View Counter -->
-            <div class="mt-6 text-gray-400">
-                <span>Page Views: </span>
-                <span id="visits" class="font-semibold text-[#ff4d6d]">Loading...</span>
-            </div>
-        </div>
-    </section>
-    <script data-goatcounter="https://tenzinlhakpa.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-    <!-- Work Section -->
-    <section id="work" class="py-24 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl mb-8 gradient-text">Featured Work</h2>
-            
-            <div class="mt-16 space-y-24">
-                <!-- Project 1 -->
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-3xl mb-4">🤖RestroBot: AI Chatbot for Future Restaurants</h3>
-                            <p class="text-gray-400 mb-6">A smart RAG based virtual assistant for restaurants built with GPT-4 and advanced conversational AI, RestroBot handles reservations and orders with the efficiency of a machine and the courtesy of your best staff member.</p>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Can handle multiple request from customer</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Consistent and accurate service</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Large Language Models (LLMs)</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Tools: Python, PyTorch, LangChain, GPT-4 API, Pinecone, OpenAIEmbeddings, SQLite</li>
-                            </ul>
-                            <a href="https://github.com/tenlhak/restaurant-chatbot/blob/main/README.md" class="inline-flex items-center mt-6 text-[#ff4d6d] hover:underline group">
-                                Visit GitHub Repo 
-                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/restro_bot.webp" alt="Project Screenshot" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-               
-                <!-- Project 2 -->
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-3xl mb-4">⚙️Rotatory Machinery Fault Detection</h3>
-                            <p class="text-gray-400 mb-6">A machine learning model to detect mechanical faults in rotatory machines using the vibration signal generated by a rotatory machine for heavy industries.</p>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>98% accuracy in fault detection</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Deployed on Machine Motoring Systems, LLC</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Tools: Python, PyTorch, AWS, Pandas, Numpy, Matplotlib</li>
-                            </ul>
-                            <a href="https://github.com/tenlhak/TFEncoder/blob/main/pre_traning.py" class="inline-flex items-center mt-6 text-[#ff4d6d] hover:underline group">
-                                Visit GitHub Repo 
-                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/MMS.webp" alt="Project Screenshot" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
+    <div class="progress" id="progress"></div>
 
-                <!-- Project 3 -->
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-3xl mb-4">📚Student's Grade Predictor</h3>
-                            <p class="text-gray-400 mb-6">An intelligent system that predicts student performance using machine learning algorithms and historical academic data.</p>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Advanced prediction algorithms</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Comprehensive data analysis</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Tools: Python, Pandas, SQLite, Matplotlib, Numpy</li>
-                            </ul>
-                            <a href="https://github.com/tenlhak/grade-predictor" class="inline-flex items-center mt-6 text-[#ff4d6d] hover:underline group">
-                                Visit GitHub Repo 
-                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/grade.webp" alt="Project Screenshot" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-3xl mb-4">🗃️PDF Figure Caption Extractor</h3>
-                            <p class="text-gray-400 mb-6">A Machine Learning based tool to extract figures and their associated captions from PDF documents. Particularly useful for developing LLMs.</p>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Automatically identifies figures, diagrams, and plots within PDF documents</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Uses computer vision techniques to detect figure boundaries</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Intelligently pairs figures with their corresponding captions</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Maintains the relationship between figures and their descriptions</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Tools: Python, Numpy, OpenCV, PIL (Python Imaging Library), Selenium, lxml</li>
-                            </ul>
-                            <a href="https://github.com/tenlhak/FigExtractor" class="inline-flex items-center mt-6 text-[#ff4d6d] hover:underline group">
-                                Visit GitHub Repo 
-                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/figExtrac.webp" alt="Project Screenshot" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-3xl mb-4">📚PDFs and Books Harvester</h3>
-                            <p class="text-gray-400 mb-6">A specialized tool designed to facilitate the collection of large-scale textual data for training and fine-tuning Large Language Models (LLMs).</p>
-                            <ul class="space-y-2 text-gray-400">
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Takes a search term and automatically generates download links from Library Genesis across multiple pages</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Downloads hundreds of books in parallel with built-in error handling</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Fully automates the book collection pipeline from search to download</li>
-                                <li class="flex items-center"><span class="text-[#ff4d6d] mr-2">•</span>Tools: Python, BeautifulSoup4, ThreadPoolExecutor, HTML</li>
-                            </ul>
-                            <a href="https://github.com/tenlhak/libgen_downloader" class="inline-flex items-center mt-6 text-[#ff4d6d] hover:underline group">
-                                Visit GitHub Repo 
-                                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/book_harvest.webp" alt="Project Screenshot" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-<!-- Publications Section -->
-    <section id="publications" class="py-24 px-4 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-black to-gray-900 opacity-50"></div>
-        <div class="max-w-6xl mx-auto relative">
-            <h2 class="text-4xl mb-8 gradient-text">Publications</h2>
-            
-            <div class="mt-16 space-y-12">
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <div class="lg:w-1/2">
-                            <h3 class="text-2xl mb-2 gradient-text">EndoAssistant</h3>
-                            <p class="text-gray-400 mb-4">Submitted to ICLR 2025</p>
-                            <p class="text-gray-300 mb-6">An AI Assistant for Endoscopy Applications that leverages advanced machine learning techniques to assist medical professionals in endoscopic procedures. The system provides real-time analysis, anomaly detection, and procedural guidance to enhance diagnostic accuracy and treatment outcomes.</p>
-                            <div class="flex items-center text-gray-400 mb-6">
-                                <span class="text-[#ff4d6d] mr-4">Keywords:</span>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Computer Vision</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Medical AI</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Deep Learning</span>
-                                </div>
-                            </div>
-                            <a href="https://openreview.net/forum?id=voYshhbWeJ" 
-                            class="inline-flex items-center text-[#ff4d6d] hover:underline group">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                </svg>
-                                Read Paper
-                                <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" 
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                        d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="lg:w-1/2">
-                            <img src="images/publication.webp" alt="EndoAssistant Visualization" class="project-image rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-4 relative">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl mb-8 gradient-text">Let's Connect</h2>
-            
-            <div class="mt-16">
-                <div class="project-card p-8 rounded-xl">
-                    <div class="flex flex-col lg:flex-row items-start gap-12">
-                        <!-- Profile Image Column -->
-                        <div class="lg:w-1/3">
-                            <div class="relative">
-                                <img src="images/profile.jpg" alt="Tenzin Lhakpa" 
-                                    class="w-full rounded-xl shadow-lg object-cover aspect-square">
-                            </div>
-                        </div>
-
-                        <!-- Text Content Column -->
-                        <div class="lg:w-2/3">
-                            <div class="space-y-8">
-                                <p class="text-gray-300 leading-relaxed">
-                                    I'm passionate about advancing the field of AI and Machine Learning through meaningful collaboration, 
-                                    with a focus on building practical solutions that solve real-world challenges. Whether you're working on neural architecture design, 
-                                    exploring applications in computer vision, developing ML pipelines, building Retrieval-Augmented Generation (RAG) systems, 
-                                    or implementing Generative AI solutions, I'd love to connect.
-                                </p>
-                                <p class="text-gray-300 leading-relaxed">
-                                    My expertise spans from traditional statistical learning to cutting-edge large language models and GenAI applications, 
-                                    with hands-on experience in designing RAG architectures that enhance AI's contextual understanding and reliability. 
-                                    I'm committed to creating AI solutions that deliver tangible impact across industries.
-                                </p>
-                                
-                                <!-- Social Links moved below text -->
-                                <div class="flex flex-wrap gap-4 pt-4">
-                                    <a href="mailto:tenlhak98@gmail.com" 
-                                    class="bg-gradient-to-r from-[#ff4d6d] to-[#ff8fa3] px-6 py-3 rounded-lg 
-                                            inline-block hover:opacity-90 transition-all transform hover:-translate-y-1">
-                                        <span class="flex items-center">
-                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                            </svg>
-                                            Email
-                                        </span>
-                                    </a>
-                                    <a href="https://github.com/tenlhak" 
-                                    class="bg-gradient-to-r from-[#ff4d6d] to-[#ff8fa3] px-6 py-3 rounded-lg 
-                                            inline-block hover:opacity-90 transition-all transform hover:-translate-y-1">
-                                        <span class="flex items-center">
-                                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.218 11.218 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                                            </svg>
-                                            GitHub
-                                        </span>
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/tenlhak/" 
-                                    class="bg-gradient-to-r from-[#ff4d6d] to-[#ff8fa3] px-6 py-3 rounded-lg 
-                                            inline-block hover:opacity-90 transition-all transform hover:-translate-y-1">
-                                        <span class="flex items-center">
-                                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                            </svg>
-                                            LinkedIn
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scroll to Top Button -->
-    <div class="scroll-to-top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 15l-6-6-6 6"/>
-        </svg>
+    <div class="hud" aria-hidden="true">
+        <span id="hud-time">--:--:--</span>
+        <span id="hud-scroll">SCR 000%</span>
+        <span id="hud-section">SEC 00 — INDEX</span>
     </div>
 
-    <!-- Scripts -->
+    <div class="frame" id="top">
+
+        <!-- ================= HERO ================= -->
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-main">
+                    <div class="hero-kicker">
+                        <span class="dot"></span>
+                        <span class="mono">Open to opportunities — 2026</span>
+                    </div>
+                    <h1>
+                        <span class="scramble" data-text="AI/ML">AI/ML</span><br>
+                        <span class="scramble outline" data-text="Engineer">Engineer</span>
+                    </h1>
+                    <p class="hero-desc">
+                        I build <em>agentic systems</em> that take manual work off people's plates —
+                        autonomous agents built on <em>large language models</em> and
+                        <em>retrieval-augmented generation</em> that make organizations
+                        measurably more efficient.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-solid" href="#work">View selected work</a>
+                        <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+                    </div>
+                </div>
+                <aside class="hero-side">
+                    <div class="spec">
+                        <dt>Specialization</dt>
+                        <dd>Agentic Systems · AI Agents · LLMs · RAG Systems · Generative AI · Multi-modal Learning</dd>
+                    </div>
+                    <div class="spec">
+                        <dt>Currently</dt>
+                        <dd>Building agentic systems that automate manual workflows in organizations</dd>
+                    </div>
+                    <div class="spec">
+                        <dt>Research</dt>
+                        <dd class="mono-val">EndoAssistant — ICLR 2025 (submitted)</dd>
+                    </div>
+                    <div class="spec">
+                        <dt>Page views</dt>
+                        <dd class="mono-val"><span id="visits">—</span></dd>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ================= WORK ================= -->
+        <section id="work">
+            <div class="section-head">
+                <span class="mono"><span class="mono-accent">01</span> — Selected Work</span>
+                <span class="rule"></span>
+                <span class="mono">(05)</span>
+            </div>
+
+            <!-- № 01 Job-Bot -->
+            <article class="project reveal">
+                <div class="project-num">№01</div>
+                <div class="project-body">
+                    <a class="project-title" href="https://github.com/tenlhak/job-bot" target="_blank" rel="noopener">Job-Bot — Automated Job Application System</a>
+                    <p class="project-tagline">An automation tool that streamlines the job hunt: it searches postings, filters them against your criteria, and submits applications on your behalf.</p>
+                    <ul class="project-facts">
+                        <li>Automated job search and application submission</li>
+                        <li>Smart filtering based on job criteria</li>
+                        <li>Résumé and cover-letter customization</li>
+                    </ul>
+                    <div class="project-tools">
+                        <span class="tool">Python</span><span class="tool">Web Scraping</span><span class="tool">Automation</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/tenlhak/job-bot" target="_blank" rel="noopener">Source ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/job_bot.webp" alt="Job-Bot automation system" loading="lazy">
+                    <span class="fig-caption">Fig. 01 — Job-Bot</span>
+                </div>
+            </article>
+
+            <!-- № 02 RestroBot -->
+            <article class="project reveal">
+                <div class="project-num">№02</div>
+                <div class="project-body">
+                    <a class="project-title" href="https://github.com/tenlhak/restaurant-chatbot/blob/main/README.md" target="_blank" rel="noopener">RestroBot — Conversational AI for Restaurants</a>
+                    <p class="project-tagline">A RAG-based virtual assistant built on GPT-4 that handles reservations and orders with the efficiency of a machine and the courtesy of your best staff member.</p>
+                    <ul class="project-facts">
+                        <li>Handles multiple concurrent customer requests</li>
+                        <li>Consistent, accurate, grounded responses</li>
+                        <li>Retrieval-augmented generation over menu &amp; policy data</li>
+                    </ul>
+                    <div class="project-tools">
+                        <span class="tool">Python</span><span class="tool">PyTorch</span><span class="tool">LangChain</span><span class="tool">GPT-4 API</span><span class="tool">Pinecone</span><span class="tool">SQLite</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/tenlhak/restaurant-chatbot/blob/main/README.md" target="_blank" rel="noopener">Source ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/restro_bot.webp" alt="RestroBot interface" loading="lazy">
+                    <span class="fig-caption">Fig. 02 — RestroBot</span>
+                </div>
+            </article>
+
+            <!-- № 03 Fault Detection -->
+            <article class="project reveal">
+                <div class="project-num">№03</div>
+                <div class="project-body">
+                    <a class="project-title" href="https://github.com/tenlhak/TFEncoder/blob/main/pre_traning.py" target="_blank" rel="noopener">Rotatory Machinery Fault Detection</a>
+                    <p class="project-tagline">A deep learning model that detects mechanical faults in heavy-industry rotatory machines from their vibration signals.</p>
+                    <ul class="project-facts">
+                        <li>98% accuracy in fault detection</li>
+                        <li>Deployed at Machine Monitoring Systems, LLC</li>
+                    </ul>
+                    <div class="project-tools">
+                        <span class="tool">Python</span><span class="tool">PyTorch</span><span class="tool">AWS</span><span class="tool">Pandas</span><span class="tool">NumPy</span><span class="tool">Matplotlib</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/tenlhak/TFEncoder/blob/main/pre_traning.py" target="_blank" rel="noopener">Source ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/rotatory_fault_detec.webp" alt="Fault detection system" loading="lazy">
+                    <span class="fig-caption">Fig. 03 — Vibration analysis</span>
+                </div>
+            </article>
+
+            <!-- № 04 FigExtractor -->
+            <article class="project reveal">
+                <div class="project-num">№04</div>
+                <div class="project-body">
+                    <a class="project-title" href="https://github.com/tenlhak/FigExtractor" target="_blank" rel="noopener">FigExtractor — PDF Figure &amp; Caption Extraction</a>
+                    <p class="project-tagline">A computer-vision tool that extracts figures and their associated captions from PDF documents — built for assembling LLM training corpora.</p>
+                    <ul class="project-facts">
+                        <li>Detects figures, diagrams, and plots automatically</li>
+                        <li>Locates figure boundaries with CV techniques</li>
+                        <li>Pairs each figure with its corresponding caption</li>
+                    </ul>
+                    <div class="project-tools">
+                        <span class="tool">Python</span><span class="tool">OpenCV</span><span class="tool">NumPy</span><span class="tool">PIL</span><span class="tool">Selenium</span><span class="tool">lxml</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/tenlhak/FigExtractor" target="_blank" rel="noopener">Source ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/figextractor.webp" alt="Figure extraction pipeline" loading="lazy">
+                    <span class="fig-caption">Fig. 04 — Extraction pipeline</span>
+                </div>
+            </article>
+
+            <!-- № 05 Book Harvester -->
+            <article class="project reveal">
+                <div class="project-num">№05</div>
+                <div class="project-body">
+                    <a class="project-title" href="https://github.com/tenlhak/libgen_downloader" target="_blank" rel="noopener">PDFs &amp; Books Harvester</a>
+                    <p class="project-tagline">A data-collection tool for assembling large-scale text corpora used in training and fine-tuning large language models.</p>
+                    <ul class="project-facts">
+                        <li>Generates download links from a search term, across pages</li>
+                        <li>Downloads hundreds of books in parallel with error handling</li>
+                        <li>Fully automated pipeline from search to storage</li>
+                    </ul>
+                    <div class="project-tools">
+                        <span class="tool">Python</span><span class="tool">BeautifulSoup4</span><span class="tool">ThreadPoolExecutor</span>
+                    </div>
+                    <a class="project-link" href="https://github.com/tenlhak/libgen_downloader" target="_blank" rel="noopener">Source ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/pdf_harvest.webp" alt="Book harvesting tool" loading="lazy">
+                    <span class="fig-caption">Fig. 05 — Corpus collection</span>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- ================= PUBLICATIONS ================= -->
+        <section id="publications">
+            <div class="section-head">
+                <span class="mono"><span class="mono-accent">02</span> — Research</span>
+                <span class="rule"></span>
+                <span class="mono">(01)</span>
+            </div>
+
+            <article class="pub reveal">
+                <div class="pub-body">
+                    <span class="pub-status">Submitted — ICLR 2025</span>
+                    <h3>EndoAssistant: An AI Assistant for Endoscopy Applications</h3>
+                    <p>
+                        Leverages advanced machine learning to assist medical professionals during
+                        endoscopic procedures — providing real-time analysis, anomaly detection, and
+                        procedural guidance to improve diagnostic accuracy and treatment outcomes.
+                    </p>
+                    <div class="keywords">
+                        <span class="tool">Computer Vision</span>
+                        <span class="tool">Medical AI</span>
+                        <span class="tool">Deep Learning</span>
+                    </div>
+                    <a class="project-link" href="https://openreview.net/forum?id=voYshhbWeJ" target="_blank" rel="noopener" style="margin-top: 1.6rem;">Read on OpenReview ↗</a>
+                </div>
+                <div class="project-media">
+                    <img src="images/endo_assist.webp" alt="EndoAssistant visualization" loading="lazy">
+                    <span class="fig-caption">Fig. 06 — EndoAssistant</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- ================= ESSAYS ================= -->
+        <section id="essays">
+            <div class="section-head">
+                <span class="mono"><span class="mono-accent">03</span> — Essays</span>
+                <span class="rule"></span>
+                <span class="mono">(01) — more in progress</span>
+            </div>
+
+            <a class="essay reveal" href="https://medium.com/@tenlhak98/this-is-how-i-would-explain-how-a-transformer-model-works-to-a-newbie-46fd017c1cb4" target="_blank" rel="noopener">
+                <span class="essay-num">E·01</span>
+                <span class="essay-title">This is How I Would Explain How a Transformer Model Works to a Newbie</span>
+                <span class="rule"></span>
+                <span class="essay-status" style="color: var(--accent);">Medium ↗</span>
+            </a>
+            <a class="essay reveal" href="#essays">
+                <span class="essay-num">E·02</span>
+                <span class="essay-title">Understanding RAG Systems: Beyond Simple Retrieval</span>
+                <span class="rule"></span>
+                <span class="essay-status">Coming soon</span>
+            </a>
+            <a class="essay reveal" href="#essays">
+                <span class="essay-num">E·03</span>
+                <span class="essay-title">The Art and Science of Fine-tuning LLMs</span>
+                <span class="rule"></span>
+                <span class="essay-status">Coming soon</span>
+            </a>
+            <a class="essay reveal" href="#essays">
+                <span class="essay-num">E·04</span>
+                <span class="essay-title">When Machine Learning is Overkill (and When It Isn't)</span>
+                <span class="rule"></span>
+                <span class="essay-status">Coming soon</span>
+            </a>
+        </section>
+
+        <!-- ================= ABOUT ================= -->
+        <section id="about">
+            <div class="section-head">
+                <span class="mono"><span class="mono-accent">04</span> — About</span>
+                <span class="rule"></span>
+                <span class="mono">Tenzin Lhakpa</span>
+            </div>
+
+            <div class="about reveal">
+                <div class="about-media">
+                    <img src="images/profile.jpg" alt="Tenzin Lhakpa" loading="lazy">
+                    <span class="fig-caption" style="display: block; margin-top: 0.8rem;">Fig. 07 — The engineer</span>
+                </div>
+                <div class="about-body">
+                    <p>
+                        I'm passionate about advancing AI through <em>meaningful collaboration</em>,
+                        with a focus on building practical solutions that solve real-world challenges.
+                        My current work centers on <em>agentic systems</em> — autonomous AI agents
+                        that take over repetitive manual work inside organizations and make teams
+                        measurably more efficient. Whether it's agent design, computer vision, ML
+                        pipelines, or retrieval-augmented generation — I care about work that ships.
+                    </p>
+                    <p>
+                        My expertise spans from traditional statistical learning to cutting-edge
+                        large language models and GenAI applications, with hands-on experience
+                        designing <em>RAG architectures</em> that enhance AI's contextual understanding
+                        and reliability. I'm committed to creating AI solutions that deliver
+                        tangible impact across industries.
+                    </p>
+
+                    <div class="skill-groups">
+                        <div class="skill-group">
+                            <h4>ML / AI</h4>
+                            <ul>
+                                <li>Large Language Models &amp; fine-tuning</li>
+                                <li>RAG systems &amp; AI agents</li>
+                                <li>Computer vision · NLP · Transformers</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Frameworks</h4>
+                            <ul>
+                                <li>PyTorch · LangChain · OpenCV</li>
+                                <li>Pandas · NumPy · Scikit-learn</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Infrastructure</h4>
+                            <ul>
+                                <li>AWS · Docker · Git</li>
+                                <li>SQL · REST APIs</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Focus areas</h4>
+                            <ul>
+                                <li>Agentic systems · Workflow automation</li>
+                                <li>Production ML · Conversational AI</li>
+                                <li>Data extraction · Research</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT ================= -->
+        <section id="contact">
+            <div class="section-head">
+                <span class="mono"><span class="mono-accent">05</span> — Contact</span>
+                <span class="rule"></span>
+                <span class="mono">Response within 24–48h</span>
+            </div>
+
+            <div class="contact reveal">
+                <p class="mono contact-label">Have a project, a role, or a research idea? —</p>
+                <a class="contact-email" href="mailto:tenlhak98@gmail.com">tenlhak98@gmail.com</a>
+                <div class="contact-links">
+                    <a class="btn" href="https://github.com/tenlhak" target="_blank" rel="noopener">GitHub ↗</a>
+                    <a class="btn" href="https://www.linkedin.com/in/tenlhak/" target="_blank" rel="noopener">LinkedIn ↗</a>
+                    <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+            <span class="mono">© 2026 Tenzin Lhakpa</span>
+            <span class="mono">Set in Inter &amp; IBM Plex Mono</span>
+            <span class="mono"><a href="#top" style="color: inherit; text-decoration: none;">Back to top ↑</a></span>
+        </footer>
+    </div>
+
+    <!-- Analytics -->
+    <script data-goatcounter="https://tenzinlhakpa.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
     <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Show/hide scroll to top button
-        const scrollToTopButton = document.querySelector('.scroll-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 100) {
-                scrollToTopButton.style.opacity = '1';
-            } else {
-                scrollToTopButton.style.opacity = '0';
-            }
-        });
-
-        scrollToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Page view counter functionality
+        // Page view counter — served by GoatCounter (same service as the analytics script)
         async function updateVisitCount() {
             try {
-                const response = await fetch('https://api.countapi.xyz/hit/tenlhak.github.io/visits');
+                const response = await fetch('https://tenzinlhakpa.goatcounter.com/counter//.json');
+                if (!response.ok) throw new Error('HTTP ' + response.status);
                 const data = await response.json();
-                document.getElementById('visits').innerText = data.value.toLocaleString();
+                const count = parseInt(String(data.count).replace(/\D/g, ''), 10);
+                document.getElementById('visits').innerText = count.toLocaleString();
             } catch (error) {
-                console.error('Error updating visit count:', error);
-                document.getElementById('visits').innerText = 'Error loading count';
+                document.getElementById('visits').innerText = 'n/a';
             }
         }
-
-        // Update the counter when the page loads
         document.addEventListener('DOMContentLoaded', updateVisitCount);
 
+        // Scroll-triggered reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ---------- Scramble-decode headline ----------
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function scrambleIn(el, delay) {
+            const text = el.dataset.text;
+            const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@0147';
+            const duration = 700;
+            const start = performance.now() + delay;
+            function tick(now) {
+                const t = (now - start) / duration;
+                if (t >= 1) { el.textContent = text; return; }
+                if (t > 0) {
+                    let out = '';
+                    for (let i = 0; i < text.length; i++) {
+                        out += (i / text.length < t)
+                            ? text[i]
+                            : glyphs[Math.floor(Math.random() * glyphs.length)];
+                    }
+                    el.textContent = out;
+                }
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        if (!reducedMotion) {
+            document.querySelectorAll('.scramble').forEach((el, i) => scrambleIn(el, i * 180));
+        }
+
+        // ---------- Scroll progress + HUD ----------
+        const progressEl = document.getElementById('progress');
+        const hudScroll = document.getElementById('hud-scroll');
+        const hudSection = document.getElementById('hud-section');
+        const hudTime = document.getElementById('hud-time');
+
+        const sectionLabels = [
+            ['contact', 'SEC 05 — CONTACT'],
+            ['about', 'SEC 04 — ABOUT'],
+            ['essays', 'SEC 03 — ESSAYS'],
+            ['publications', 'SEC 02 — RESEARCH'],
+            ['work', 'SEC 01 — WORK']
+        ];
+
+        function onScroll() {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const frac = max > 0 ? window.scrollY / max : 0;
+            progressEl.style.transform = 'scaleX(' + frac + ')';
+            hudScroll.textContent = 'SCR ' + String(Math.round(frac * 100)).padStart(3, '0') + '%';
+
+            const probe = window.scrollY + window.innerHeight * 0.35;
+            let label = 'SEC 00 — INDEX';
+            for (const [id, text] of sectionLabels) {
+                const el = document.getElementById(id);
+                if (el && el.offsetTop <= probe) { label = text; break; }
+            }
+            hudSection.textContent = label;
+        }
+
+        function onTick() {
+            hudTime.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        setInterval(onTick, 1000);
+        onScroll();
+        onTick();
     </script>
 </body>
 </html>
