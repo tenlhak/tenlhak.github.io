@@ -1,0 +1,157 @@
+/* Précis website (tenlhak.github.io/precis/): the panel's Dark luxe palette, light and dark. */
+:root {
+  color-scheme: light dark;
+  --ground: #f6f3ec;
+  --surface: #fffdf8;
+  --line: #e2dccf;
+  --ink: #1b1a17;
+  --soft: #4f4a42;
+  --muted: #6b655b;
+  --accent: #7a5c25;
+  --primary: #7a5c25;
+  --on-primary: #fffdf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #121110;
+    --surface: #1c1a17;
+    --line: #2b2925;
+    --ink: #ece6da;
+    --soft: #b7afa2;
+    --muted: #9c958a;
+    --accent: #c9a96e;
+    --primary: #c9a96e;
+    --on-primary: #15130f;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 20px 48px;
+}
+header.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+header.brand a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  text-decoration: none;
+}
+header.brand svg {
+  flex: none;
+}
+.wordmark {
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  font-size: 15px;
+}
+h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 28px 0 4px;
+}
+h2 {
+  font-size: 19px;
+  margin: 36px 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+p,
+li {
+  color: var(--soft);
+}
+strong {
+  color: var(--ink);
+}
+ul,
+ol {
+  padding-left: 22px;
+}
+li {
+  margin: 6px 0;
+}
+a {
+  color: var(--accent);
+}
+.meta {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 32px;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 0 0 8px;
+}
+.panel ul {
+  margin: 0;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 16px 0 8px;
+}
+.plans .panel {
+  margin: 0;
+}
+.plans h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.price small {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+footer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-bottom: 8px;
+}

@@ -4,62 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Précis — Privacy Policy</title>
-<meta name="description" content="How the Précis Chrome extension handles your data.">
-<style>
-  :root {
-    color-scheme: light dark;
-    --ground: #f6f3ec; --ink: #1b1a17; --soft: #4f4a42; --muted: #6b655b;
-    --line: #e2dccf; --accent: #7a5c25; --surface: #fffdf8;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ground: #121110; --ink: #ece6da; --soft: #b7afa2; --muted: #9c958a;
-      --line: #2b2925; --accent: #c9a96e; --surface: #1c1a17;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--ground); color: var(--ink);
-    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-  main { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
-  header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-  header svg { flex: none; }
-  .brand { font-weight: 700; letter-spacing: 0.26em; font-size: 15px; }
-  h1 { font-size: 30px; line-height: 1.2; margin: 28px 0 4px; }
-  .meta { color: var(--muted); font-size: 14px; margin: 0 0 32px; }
-  h2 { font-size: 19px; margin: 36px 0 8px; padding-top: 20px; border-top: 1px solid var(--line); }
-  p, li { color: var(--soft); }
-  strong { color: var(--ink); }
-  ul { padding-left: 22px; }
-  li { margin: 6px 0; }
-  a { color: var(--accent); }
-  .summary {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-    padding: 18px 20px; margin: 0 0 8px;
-  }
-  .summary ul { margin: 0; }
-</style>
+<meta name="description" content="How the Précis browser extension handles your data.">
+<link rel="stylesheet" href="../site.css">
 </head>
 <body>
 <main>
-  <header>
-    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 1.5 L22.5 12 L12 22.5 L1.5 12 Z" fill="#A47E3B"/>
-      <path d="M12 1.5 L1.5 12 L12 12 Z" fill="#BF9C5A"/>
-    </svg>
-    <span class="brand">PRÉCIS</span>
+  <header class="brand">
+    <a href="../">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 1.5 L22.5 12 L12 22.5 L1.5 12 Z" fill="#A47E3B"/>
+        <path d="M12 1.5 L1.5 12 L12 12 Z" fill="#BF9C5A"/>
+      </svg>
+      <span class="wordmark">PRÉCIS</span>
+    </a>
   </header>
 
   <h1>Privacy Policy</h1>
-  <p class="meta">Effective October 13, 2026</p>
+  <p class="meta">Effective October 22, 2026</p>
 
-  <p>Précis is a Chrome extension that summarizes the web page you are reading and answers your follow-up questions about it. This policy explains what data Précis handles, why, and where it goes.</p>
+  <p>Précis is a Chrome extension (it also runs in other Chromium-based browsers, such as Brave and Edge) that summarizes the web page you are reading and answers your follow-up questions about it. Précis is operated by <strong>Tenzin Lhakpa</strong>, Toronto, Ontario, Canada. This policy explains what data Précis handles, why, and where it goes.</p>
 
-  <div class="summary">
+  <div class="panel">
     <ul>
       <li>Précis reads and sends page content <strong>only in tabs where you have opened Précis</strong>, to produce the page description, summary or answers.</li>
       <li>Précis <strong>does not store</strong> the pages you read, your questions or the answers on its servers.</li>
+      <li>To run the free plan and subscriptions, Précis stores a small account record: your email address, how many free summaries you used this month, and your subscription status.</li>
+      <li>Card details go only to our payment processor, Stripe. Précis never sees them.</li>
       <li>Précis <strong>does not sell</strong> your data, show ads, or use analytics or tracking.</li>
     </ul>
   </div>
@@ -67,30 +37,39 @@
   <h2>What Précis handles</h2>
   <ul>
     <li><strong>Page content.</strong> When you open the Précis panel on a page, Précis reads that page and sends its address, title and the beginning of its text (up to about 8,000 characters) to write a one-line description of the page. When you ask for a summary or ask a question, Précis sends the page's address, title and text, along with your question and the earlier messages of that chat. Précis can only read what your browser displays; it does not get around paywalls or log in anywhere on your behalf.</li>
-    <li><strong>Your Google account email.</strong> You sign in with the Google account signed into Chrome. Précis receives your email address and a temporary sign-in token from Google; the backend verifies that token with Google (remembering a successful check for up to 5 minutes). Précis does not receive your password.</li>
-    <li><strong>Basic request logs.</strong> For each request, the backend records the date and time, which feature was used, a random chat ID, your email address, the length of the page text, how long the response took, the amount of AI processing used, and the type of any error. These logs <strong>never contain page text, your questions or the answers</strong>.</li>
+    <li><strong>Your Google account email.</strong> In Google Chrome, you sign in with the Google account signed into Chrome; in other browsers, you sign in through a Google sign-in window. Précis receives your email address and a temporary sign-in token from Google; the backend verifies that token with Google (remembering a successful check for up to 5 minutes). Précis does not receive your password.</li>
+    <li><strong>Your account record.</strong> Linked to your email address: how many free summaries you used in the current month, and, if you subscribe, your Stripe customer ID, your plan (monthly or yearly), your subscription status, when your current period ends, whether it is set to cancel, and when a renewal payment failed (if it did).</li>
+    <li><strong>An install ID.</strong> A random identifier that Précis creates when it is installed and sends with each request. It identifies that installation of the extension, not you or your device, and is used to limit free summaries to one account per installation each month. We store which account used free summaries on each install ID in a given month.</li>
+    <li><strong>Your IP address, in hashed form.</strong> To limit how many new accounts can use free summaries from one network, the backend converts your IP address into a keyed hash (a one-way code made with a secret key) and stores that code with the accounts that started using free summaries from it. The IP address itself is never stored, and the hash can't practically be turned back into it.</li>
+    <li><strong>Payment information.</strong> When you subscribe, you enter your payment details on Stripe's checkout page, not in Précis. Stripe receives your card details, name, email and the billing details it asks for. Précis receives only your Stripe customer and subscription information described above, never your card number.</li>
+    <li><strong>Basic request logs.</strong> For each request, the backend records the date and time, which feature was used, a random chat ID, your email address, the length of the page text, whether you used a free summary or a subscription, how long the response took, the amount of AI processing used, and the type of any error. These logs <strong>never contain page text, your questions, the answers, or IP addresses</strong>.</li>
   </ul>
 
   <h2>How it is used</h2>
-  <p>This information is used only to provide Précis's features — the page description, summary and answers — to keep the service secure (making sure requests come from a signed-in Google account), and to diagnose problems. It is not used for advertising, profiling, or any purpose unrelated to these features.</p>
+  <p>This information is used only to provide Précis's features — the page description, summary and answers — to run the free plan and subscriptions (counting free summaries, limiting free-plan abuse, and knowing whether you've subscribed), to keep the service secure (making sure requests come from a signed-in Google account), and to diagnose problems. It is not used for advertising, profiling, or any purpose unrelated to these features.</p>
 
   <h2>Who processes it</h2>
   <ul>
-    <li><strong>Amazon Web Services (AWS)</strong> hosts the Précis backend in the United States (us-east-1) and stores the basic request logs.</li>
+    <li><strong>Amazon Web Services (AWS)</strong> hosts the Précis backend in the United States (us-east-1) and stores the account records and basic request logs.</li>
     <li><strong>Moonshot AI</strong>, the provider of the Kimi AI model, receives the page content and questions described above in order to generate descriptions, summaries and answers. Its handling of that data is governed by Moonshot AI's own terms and privacy policy.</li>
+    <li><strong>Stripe</strong> processes subscription payments and handles your payment details, receipts and invoices. Its handling of that data is governed by <a href="https://stripe.com/privacy">Stripe's privacy policy</a>.</li>
     <li><strong>Google</strong> provides sign-in and confirms that your sign-in token is valid.</li>
   </ul>
   <p>Précis does not share or sell your data to anyone else.</p>
 
   <h2>How long it is kept</h2>
   <ul>
-    <li><strong>On Précis's servers:</strong> page content, questions and answers are processed to produce a response and then discarded; they are not saved. Basic request logs are deleted automatically after <strong>7 days</strong>.</li>
-    <li><strong>In your browser:</strong> your current chat (including the page text it is about) is kept in Chrome's temporary session storage so it survives closing and reopening the panel. It is deleted when you close the tab, after 30 minutes without activity, when you start a new chat, or when you quit Chrome.</li>
+    <li><strong>Page content, questions and answers:</strong> processed to produce a response and then discarded; they are not saved on our servers.</li>
+    <li><strong>Account records:</strong> if you don't subscribe, deleted automatically after <strong>12 months</strong> without use. If you subscribe, kept while your subscription is active and deleted automatically 12 months after it ends.</li>
+    <li><strong>Install ID records:</strong> deleted automatically about 40 days after they are created. <strong>Hashed IP records:</strong> deleted automatically after <strong>30 days</strong>.</li>
+    <li><strong>Basic request logs:</strong> deleted automatically after <strong>7 days</strong>.</li>
+    <li><strong>In your browser:</strong> your current chat (including the page text it is about) is kept in the browser's temporary session storage so it survives closing and reopening the panel. It is deleted when you close the tab, after 30 minutes without activity, when you start a new chat, or when you quit the browser. In browsers other than Google Chrome, the temporary sign-in token (valid for about an hour) is kept in the same temporary storage until you sign out or quit the browser. The install ID is kept in the extension's local storage until you uninstall Précis.</li>
+    <li><strong>At Stripe:</strong> payment records, receipts and invoices are kept by Stripe as required for tax and legal purposes, under Stripe's policies.</li>
     <li><strong>At Moonshot AI:</strong> retention of data sent for processing is governed by Moonshot AI's policies.</li>
   </ul>
 
   <h2>Permissions</h2>
-  <p>Précis asks Chrome for access to the sites you visit so that it can read the page you are on when you use it. It reads pages only in tabs where you have opened the Précis panel: when the panel opens, when you ask for a summary or ask a question, and when that tab's page changes, so the description and chat stay in sync with the page. Other permissions are used to keep one chat per tab, notice when a page changes or reloads, expire idle chats, and sign you in with Google.</p>
+  <p>Précis asks the browser for access to the sites you visit so that it can read the page you are on when you use it. It reads pages only in tabs where you have opened the Précis panel: when the panel opens, when you ask for a summary or ask a question, and when that tab's page changes, so the description and chat stay in sync with the page. Other permissions are used to keep one chat per tab, notice when a page changes or reloads, expire idle chats, keep the install ID, sign you in with Google, and open Stripe's checkout and subscription pages in a new tab.</p>
 
   <h2>Google user data</h2>
   <p>The use of information received from Google APIs will adhere to the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
@@ -98,9 +77,10 @@
   <h2>Your choices</h2>
   <ul>
     <li>Use <strong>New chat</strong> or close the tab to clear a chat from your browser at any time.</li>
+    <li>Use <strong>Manage subscription</strong> in the panel to update your payment details, switch plans or cancel.</li>
     <li>Use <strong>Sign out</strong> in the panel to sign out and revoke Précis's access to your Google sign-in.</li>
-    <li>Uninstalling the extension removes all of its data from your browser.</li>
-    <li>To ask about or request deletion of the basic logs associated with your email address before they expire, contact us at the address below.</li>
+    <li>Uninstalling the extension removes all of its data from your browser, including the install ID.</li>
+    <li>To ask about, or request deletion of, the data associated with your email address (your account record and basic logs), contact us at the address below. We may keep subscription records we need for tax or legal reasons.</li>
   </ul>
 
   <h2>Children</h2>
@@ -112,5 +92,15 @@
   <h2>Contact</h2>
   <p>Questions about this policy or your data: <a href="mailto:aiheadshotx@gmail.com">aiheadshotx@gmail.com</a></p>
 </main>
+<footer>
+  <nav>
+    <a href="../">Précis</a>
+    <a href="../terms/">Terms of Service</a>
+    <a href="../refunds/">Refund Policy</a>
+    <a href="../privacy/">Privacy Policy</a>
+    <a href="mailto:aiheadshotx@gmail.com">Contact</a>
+  </nav>
+  Précis · Toronto, Ontario, Canada
+</footer>
 </body>
 </html>
